@@ -1,0 +1,224 @@
+<html>
+    <head>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var speed = document.getElementById("speed")
+                var outputSpeed = document.getElementById("speedOutput")
+                speed.addEventListener('input', function() {
+                    outputSpeed.value = speed.value
+                })
+            })
+            function updateSpeed() {
+                var speed = document.getElementById('speed').value;
+                var speedReq = new XMLHttpRequest();
+                speedReq.open(
+                    'GET',
+                    '/speed?speed=' + speed,
+                    true
+                );
+                speedReq.send();
+            }
+            function turnoff() {
+                var offReq = new XMLHttpRequest();
+                offReq.open(
+                    "GET",
+                    '/off',
+                    true
+                );
+                offReq.send();
+            }
+            function turnon() {
+                var onReq = new XMLHttpRequest();
+                onReq.open (
+                    "GET",
+                    "/on",
+                    true
+                );
+                onReq.send();
+            }
+        </script>
+        <style>
+            .onOffButton {
+                padding: 2%;
+                border-radius: 0.7em;
+                position: fixed;
+                cursor: pointer;
+                margin-top: 2%;
+                transition: all 0.3s ease-in-out;
+            }
+            
+            .onOffButton:hover {
+                transform: scale(1.1);
+            }
+            
+            #lean-right,
+            #lean-left {
+                position: fixed;
+                padding: 1%;
+                border-radius: 1em;
+                cursor: pointer;
+                width: 7.5%;
+                transition: all 0.3s ease-in-out;
+                top: 18dvh;
+            }
+
+            #lean-left {
+                left: 26dvw;
+            }
+
+            #lean-right {
+                right: 29dvw;
+            }
+
+            .heightData {
+                position: fixed;
+                margin-top: 8%;
+                left: 46dvw;
+            }
+            
+            .upper {
+                width: 100vw;
+                display: block;
+                position: relative;
+            }
+            
+            .upwardControl {
+                display: block;
+                position: fixed;
+                margin-top: 45vh;
+                height: 200px;
+            }
+            
+            #speed {
+                rotate: 270deg;
+                width: 170%;
+                transform: scale(1.5);
+            }
+            
+            #up-button,
+            #down-button,
+            #turn-left,
+            #turn-right {
+                position: fixed;
+                padding: 2.5%;
+                cursor: pointer;
+                width: 7.5%;
+                transition: all 0.3s ease-in-out;
+            }
+            
+            #up-button {
+                left: 200px;
+                top: 33vh;
+                border-top-right-radius: 100%;
+                border-top-left-radius: 100%;
+            }
+            
+            #down-button {
+                left: 200px;
+                border-bottom-right-radius: 80%;
+                border-bottom-left-radius: 80%;
+            }
+            
+            #turn-left {
+                right: 300px;
+                top: 425px;
+                border-top-left-radius: 80%;
+                border-bottom-left-radius: 80%;
+            }
+            
+            #turn-right {
+                right: 100px;
+                top: 425px;
+                border-top-right-radius: 80%;
+                border-bottom-right-radius: 80%;
+            }
+            
+            #lean-right:hover,
+            #lean-left:hover,
+            #up-button:hover,
+            #down-button:hover,
+            #turn-left:hover,
+            #turn-right:hover,
+            #landButton:hover,
+            #flipButton:hover,
+            #flyButton:hover {
+                transform: scale(1.1);
+            }
+            
+            .camera {
+                width: 950px;
+                height: 400px;
+                top: 250px;
+                left: 450px;
+                border: 1px solid black;
+                border-radius: 0.5em;
+                position: fixed;
+                background-color: beige;
+            }
+            
+            .bottom {
+                display: block;
+                position: fixed;
+                margin-top: 80vh;
+                height: 200px;
+                margin-inline-start: 2%;
+            }
+            
+            #landButton,
+            #flyButton,
+            #flipButton {
+                position: fixed;
+                padding: 2.5%;
+                border-radius: 1em;
+                cursor: pointer;
+                width: 7.5%;
+                transition: all 0.3s ease-in-out;
+            }
+            
+            #landButton {
+                left: 10vw;
+            }
+            
+            #flyButton {
+                right: 10vw;
+            }
+            
+            #flipButton {
+                right: 50vw;
+                left: 50vw;
+            }  
+        </style>
+    </head>
+    <body>
+        <div>
+            <div class="upper">
+                <button class="onOffButton" 
+                        style="left: 20%; background-color:rgb(31, 212, 31);"
+                        type="button" onclick="turnon()">On
+                </button>
+                <b class="heightData">Height: 200 cm</b>
+                <button class="onOffButton" 
+                        style="right: 20%; background-color:rgb(230, 91, 91)"
+                        type="button" onclick="turnoff()">Off
+                </button>
+                <button id="lean-left"><b><-</b></button>
+                <button id="lean-right"><b>-></b></button>
+            </div>
+            <div class="upwardControl">
+                <b>Speed:</b><br>
+                <output for="speed" id="speedOutput" style="margin-left: 5%;">0</output>
+                <input type="range" id="speed" name="speed" value="0" min="0" max="255" onchange="updateSpeed()">
+                <button id="up-button">UP</button>
+                <button id="down-button">DOWN</button>
+                <button id="turn-left">LEFT</button>
+                <button id="turn-right">RIGHT</button>
+                <div class="camera"></div>
+            </div>
+            <div class="bottom">
+                <button id="landButton">LAND</button>
+                <button id="flipButton">FLIP</button>
+                <button id="flyButton">FLY</button>
+            </div>
+        </div>
+    </body>
+</html>
