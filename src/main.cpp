@@ -85,7 +85,7 @@ void handleRoot() {
                 document.getElementById('motor4Speed').value = 255;
                 updateSpeed();
             }
-            function goLeft() {
+            function goRight() {
                 document.getElementById('motor1Speed').value = 255;
                 document.getElementById('motor2Speed').value = 123;
                 document.getElementById('motor3Speed').value = 255;
@@ -94,13 +94,31 @@ void handleRoot() {
                 document.getElementById('motor4Direction').value = 'counter-clockwise'
                 updateSpeed()
             }
-            function goRight() {
+            function goLeft() {
                 document.getElementById('motor1Speed').value = 123;
                 document.getElementById('motor2Speed').value = 255;
                 document.getElementById('motor3Speed').value = 123;
                 document.getElementById('motor4Speed').value = 255;
                 document.getElementById('motor1Direction').value = 'counter-clockwise'
                 document.getElementById('motor3Direction').value = 'counter-clockwise'
+                updateSpeed()
+            }
+            function forward() {
+                document.getElementById('motor1Speed').value = 255;
+                document.getElementById('motor2Speed').value = 255;
+                document.getElementById('motor3Speed').value = 123;
+                document.getElementById('motor4Speed').value = 123;
+                document.getElementById('motor4Direction').value = 'counter-clockwise'
+                document.getElementById('motor3Direction').value = 'counter-clockwise'
+                updateSpeed()
+            }
+            function backward() {
+                document.getElementById('motor1Speed').value = 123;
+                document.getElementById('motor2Speed').value = 123;
+                document.getElementById('motor3Speed').value = 255;
+                document.getElementById('motor4Speed').value = 255;
+                document.getElementById('motor1Direction').value = 'counter-clockwise'
+                document.getElementById('motor2Direction').value = 'counter-clockwise'
                 updateSpeed()
             }
         </script>
@@ -162,6 +180,8 @@ void handleRoot() {
                 transform: scale(1.5);
             }
             
+            #forward,
+            #backward,
             #up-button,
             #down-button,
             #turn-left,
@@ -173,6 +193,18 @@ void handleRoot() {
                 transition: all 0.3s ease-in-out;
             }
             
+            #forward {
+                right: 200px;
+                top: 300px;
+                border-top-right-radius: 80%;
+                border-top-left-radius: 80%;
+            }
+            #backward {
+                right: 200px;
+                top: 550px;
+                border-bottom-left-radius: 80%;
+                border-bottom-right-radius: 80%;
+            }
             #up-button {
                 left: 180px;
                 top: 33vh;
@@ -187,19 +219,21 @@ void handleRoot() {
             }
             
             #turn-left {
-                right: 300px;
+                right: 350px;
                 top: 425px;
                 border-top-left-radius: 80%;
                 border-bottom-left-radius: 80%;
             }
             
             #turn-right {
-                right: 100px;
+                right: 50px;
                 top: 425px;
                 border-top-right-radius: 80%;
                 border-bottom-right-radius: 80%;
             }
-            
+
+            #forward:hover,
+            #backward:hover,
             #lean-right:hover,
             #lean-left:hover,
             #up-button:hover,
@@ -282,8 +316,10 @@ void handleRoot() {
             <div class='upwardControl'>
                 <button id='up-button' onmousedown='getUp()' onmouseup='turnon()'>UP</button>
                 <button id='down-button'>DOWN</button>
+                <button id='forward' onmousedown='forward()' onmouseup='turnon()'>FWD</button>
                 <button id='turn-left' onmousedown='goLeft()' onmouseup='turnon()'>LEFT</button>
                 <button id='turn-right' onmousedown='goRight()' onmouseup='turnon()'>RIGHT</button>
+                <button id='backward' onmousedown='backward()' onmouseup='turnon()'>BWD</button>
                 <div class='camera'></div>
             </div>
             <div class='bottom'>
